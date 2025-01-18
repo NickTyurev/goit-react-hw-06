@@ -13,10 +13,10 @@ const ContactForm = () => {
     name: Yup.string().min(3).max(50).required('Name is required'),
     number: Yup.string()
       .matches(
-        /^(\+?\d{1,2}\s?)?(\(?\d{1,4}\)?[\s\-]?)?[\d\- ]{5,14}$/, 
+        /^(\+?\d{1,2}\s?)?(\(?\d{1,4}\)?[\s\-]?)?[\d\- ]{5,14}$/,
         'Phone number is not valid'
       )
-      .required('Number is required')
+      .required('Number is required'),
   });
 
   return (
@@ -24,7 +24,7 @@ const ContactForm = () => {
       initialValues={{ name: '', number: '' }}
       validationSchema={validationSchema}
       onSubmit={(values, { resetForm }) => {
-        // Додаємо контакт
+        
         dispatch(addContact({ ...values, id: nanoid() }));
         resetForm();
       }}

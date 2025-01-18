@@ -5,18 +5,21 @@ import contactsReducer from './contactsSlice';
 import filtersReducer from './filtersSlice';
 
 const persistConfig = {
-  key: 'contacts',
-  storage,
-  whitelist: ['items'] 
+  key: 'contacts', 
+  storage, 
+  whitelist: ['items'], 
 };
 
 const persistedContactsReducer = persistReducer(persistConfig, contactsReducer);
 
-export const store = configureStore({
+const store = configureStore({
   reducer: {
     contacts: persistedContactsReducer,
-    filters: filtersReducer
-  }
+    filters: filtersReducer,
+  },
+  devTools: process.env.NODE_ENV !== 'production',
 });
 
-export const persistor = persistStore(store);
+const persistor = persistStore(store);
+
+export { store, persistor };
